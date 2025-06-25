@@ -6,6 +6,7 @@
     <title>ديوان الشعراء </title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #8B4513;
@@ -42,9 +43,61 @@
             padding: 0 20px;
         }
 
+        /* شريط البحث */
+        .search-bar {
+            background: white;
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: var(--shadow);
+            margin: 20px auto 30px;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .search-bar:focus-within {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .search-bar i {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            border: none;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            background: transparent;
+            outline: none;
+            color: var(--dark-color);
+            font-family: inherit;
+        }
+
+        .search-bar button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .search-bar button:hover {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
         /* الطبقة الأولى - قائمة الشعراء */
         #home-view {
-            padding: 40px 0;
+            padding: 20px 0 0;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -52,8 +105,9 @@
 
         header {
             text-align: center;
-            padding: 30px 0;
-            margin-bottom: 30px;
+            padding: 30px 0 20px;
+            margin-bottom: 20px;
+            position: relative;
         }
 
         .logo {
@@ -63,6 +117,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             position: relative;
             display: inline-block;
+            animation: fadeInDown 1s ease;
         }
 
         .logo::after {
@@ -83,6 +138,7 @@
             max-width: 600px;
             margin: 0 auto;
             line-height: 1.8;
+            animation: fadeIn 1.5s ease;
         }
 
         .poets-grid {
@@ -103,6 +159,8 @@
             height: 100%;
             display: flex;
             flex-direction: column;
+            animation: fadeInUp 0.8s ease;
+            animation-fill-mode: backwards;
         }
 
         .poet-card:hover {
@@ -184,6 +242,13 @@
             transition: var(--transition);
             width: 100%;
             margin-top: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .view-btn i {
+            margin-left: 8px;
         }
 
         .view-btn:hover {
@@ -302,6 +367,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 10px;
+            justify-content: space-between;
         }
 
         .poem-item:hover {
@@ -309,7 +375,6 @@
         }
 
         .poem-item i {
-            margin-left: 10px;
             color: var(--gold-color);
         }
 
@@ -325,6 +390,7 @@
             border-radius: 12px;
             padding: 40px;
             box-shadow: var(--shadow);
+            position: relative;
         }
 
         .poem-header {
@@ -353,6 +419,7 @@
             font-family: 'Noto Naskh Arabic', serif;
             text-align: center;
             white-space: pre-line;
+            padding: 20px 0;
         }
 
         .poem-meta {
@@ -362,6 +429,29 @@
             font-size: 0.9rem;
             color: var(--secondary-color);
             text-align: center;
+        }
+
+        .copy-poem-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .copy-poem-btn:hover {
+            background: var(--secondary-color);
+        }
+
+        .copy-poem-btn i {
+            margin-right: 5px;
         }
 
         footer {
@@ -388,6 +478,33 @@
             line-height: 1.8;
         }
 
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .social-link i {
+            margin-left: 8px;
+        }
+
         /* تصميم متجاوب */
         @media (max-width: 768px) {
             .logo {
@@ -405,6 +522,60 @@
             .poem-content {
                 font-size: 1.3rem;
             }
+            
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* رسوم متحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* إشعارات */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
         }
     </style>
 </head>
@@ -417,6 +588,13 @@
                 <p class="subtitle">منصة تجمع روائع الشعر العربي عبر العصور، من الجاهلية إلى العصر الحديث، في مكان واحد</p>
             </header>
 
+            <!-- شريط البحث -->
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="ابحث عن شاعر أو قصيدة...">
+                <button id="search-btn"><i class="fas fa-search"></i> بحث</button>
+            </div>
+
             <div class="poets-grid" id="poets-container">
                 <!-- سيتم تعبئته بالشعراء من خلال JavaScript -->
             </div>
@@ -426,7 +604,20 @@
             <div class="footer-content">
                 <div class="footer-logo">ديوان الشعراء</div>
                 <p class="footer-text">منصة ثقافية تهدف للحفاظ على التراث الشعري العربي ونشره للأجيال القادمة</p>
-                <p>جميع الحقوق محفوظة © 2023</p>
+                
+                <div class="social-links">
+                    <a href="https://youtube.com/@U1QO1" class="social-link" target="_blank">
+                        <i class="fab fa-youtube"></i> YouTube: @U1QO1
+                    </a>
+                    <a href="https://instagram.com/@k9x9i" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i> Instagram: @k9x9i
+                    </a>
+                    <a href="https://tiktok.com/@c3_i2" class="social-link" target="_blank">
+                        <i class="fab fa-tiktok"></i> TikTok: @c3_i2
+                    </a>
+                </div>
+                
+                <p style="margin-top: 20px;">جميع الحقوق محفوظة © 2023</p>
             </div>
         </footer>
     </section>
@@ -435,7 +626,7 @@
     <section id="poet-view" class="view">
         <div class="container">
             <button class="back-btn" id="back-to-home">
-                <i>←</i> العودة إلى قائمة الشعراء
+                <i class="fas fa-arrow-right"></i> العودة إلى قائمة الشعراء
             </button>
 
             <div class="poet-profile">
@@ -462,10 +653,14 @@
     <section id="poem-view" class="view">
         <div class="container">
             <button class="back-btn" id="back-to-poet">
-                <i>←</i> العودة إلى صفحة الشاعر
+                <i class="fas fa-arrow-right"></i> العودة إلى صفحة الشاعر
             </button>
 
             <div class="poem-container">
+                <button class="copy-poem-btn" id="copy-poem-btn">
+                    <i class="fas fa-copy"></i> نسخ القصيدة
+                </button>
+                
                 <div class="poem-header">
                     <h2 class="poem-title" id="poem-title"></h2>
                     <p class="poem-author" id="poem-author"></p>
@@ -478,6 +673,11 @@
         </div>
     </section>
 
+    <!-- إشعار النسخ -->
+    <div class="notification" id="copy-notification">
+        <i class="fas fa-check-circle"></i> تم نسخ القصيدة بنجاح!
+    </div>
+
     <script>
         // بيانات الشعراء والقصائد مخزنة داخل الكود
         const poetryData = {
@@ -487,70 +687,96 @@
                     name: "المتنبي",
                     bio: "أبو الطيب المتنبي (915-965) أحد أعظم شعراء العربية. اشتهر بقوة ألفاظه وبلاغة معانيه. ولد في الكوفة وعاش في بلاط سيف الدولة الحمداني في حلب. قُتل في طريق عودته من فارس إلى بغداد.",
                     era: "العصر العباسي",
-                    color: "#1a237e"
+                    color: "#1a237e",
+                    poemsCount: 5
                 },
                 {
                     id: 2,
                     name: "أبو تمام",
                     bio: "حبيب بن أوس الطائي (796-843) شاعر عباسي شهير، من أصل مسيحي. عُرف ببديع شعره وحسن اختياره للمعاني. عمل في بلاط المعتصم بالله وكان أميناً لخزانة الكتب في بغداد.",
                     era: "العصر العباسي",
-                    color: "#4a148c"
+                    color: "#4a148c",
+                    poemsCount: 4
                 },
                 {
                     id: 3,
                     name: "عنترة بن شداد",
                     bio: "عنترة بن عمرو بن شداد (525-608) فارس وشاعر جاهلي من قبيلة عبس. اشتهر بشعره الغزلي وقصة حبه لعبلة ابنة عمه. تميز شعره بالفخر والحماسة والغزل.",
                     era: "العصر الجاهلي",
-                    color: "#006064"
+                    color: "#006064",
+                    poemsCount: 3
                 },
                 {
                     id: 4,
                     name: "محمود درويش",
                     bio: "محمود درويش (1941-2008) شاعر فلسطيني وعضو المجلس الوطني الفلسطيني. يُعد أحد أهم الشعراء الفلسطينيين والعرب الذين ارتبط اسمهم بشعر الثورة والوطن. حاز على العديد من الجوائز الأدبية.",
                     era: "القرن العشرين",
-                    color: "#bf360c"
+                    color: "#bf360c",
+                    poemsCount: 6
                 },
                 {
                     id: 5,
                     name: "نزار قباني",
                     bio: "نزار قباني (1923-1998) شاعر ودبلوماسي سوري. يُعتبر من أهم الشعراء العرب المعاصرين. تميزت قصائده بالجرأة والرومانسية والثورة على التقاليد. كتب عن المرأة والحب والسياسة.",
                     era: "القرن العشرين",
-                    color: "#c2185b"
+                    color: "#c2185b",
+                    poemsCount: 8
                 },
                 {
                     id: 6,
                     name: "أحمد شوقي",
                     bio: "أحمد شوقي (1868-1932) شاعر مصري لقب بـ\"أمير الشعراء\". جمع بين الثقافة العربية والغربية. كتب في مختلف الأغراض الشعرية وخاصة المدح والرثاء والمسرح الشعري.",
                     era: "العصر الحديث",
-                    color: "#01579b"
+                    color: "#01579b",
+                    poemsCount: 7
                 },
                 {
                     id: 7,
                     name: "جبران خليل جبران",
                     bio: "جبران خليل جبران (1883-1931) شاعر وكاتب ورسام لبناني. من رواد الأدب العربي الحديث. هاجر إلى أمريكا حيث أسس \"الرابطة القلمية\". من أشهر أعماله \"النبي\" و\"الأجنحة المتكسرة\".",
                     era: "القرن العشرين",
-                    color: "#33691e"
+                    color: "#33691e",
+                    poemsCount: 4
                 },
                 {
                     id: 8,
                     name: "إيليا أبو ماضي",
                     bio: "إيليا أبو ماضي (1889-1957) شاعر لبناني من شعراء المهجر في أمريكا الشمالية. أسس \"الرابطة القلمية\" مع جبران. تميز شعره بالفلسفة والتفاؤل والتأمل في الحياة.",
                     era: "القرن العشرين",
-                    color: "#e65100"
+                    color: "#e65100",
+                    poemsCount: 5
                 },
                 {
                     id: 9,
                     name: "أبو العتاهية",
                     bio: "إسماعيل بن القاسم (748-828) شاعر عباسي مشهور. عُرف بالزهد والحكمة في شعره بعد أن كان غزلاً. كان مقرباً من الخلفاء العباسيين خاصة هارون الرشيد.",
                     era: "العصر العباسي",
-                    color: "#5d4037"
+                    color: "#5d4037",
+                    poemsCount: 3
                 },
                 {
                     id: 10,
                     name: "أبو نواس",
                     bio: "الحسن بن هانئ (756-814) شاعر عباسي من أصل فارسي. عُرف بشعره في الخمر والمجون والغزل. كان من شعراء البلاط في عهد هارون الرشيد والأمين.",
                     era: "العصر العباسي",
-                    color: "#4e342e"
+                    color: "#4e342e",
+                    poemsCount: 6
+                },
+                {
+                    id: 11,
+                    name: "الفرزدق",
+                    bio: "همام بن غالب بن صعصعة (641-728) شاعر أموي من قبيلة تميم. اشتهر بالهجاء والفخر. كان منافساً للشاعر جرير في النقائض التي تعد من أشهر ما في الشعر العربي.",
+                    era: "العصر الأموي",
+                    color: "#5d4037",
+                    poemsCount: 4
+                },
+                {
+                    id: 12,
+                    name: "البحتري",
+                    bio: "الوليد بن عبيد الطائي (821-897) شاعر عباسي كبير، ولد في منبج بسوريا. تميز شعره بجودة الوصف ورقة الأسلوب. كان من أبرز شعراء المديح في العصر العباسي.",
+                    era: "العصر العباسي",
+                    color: "#4e342e",
+                    poemsCount: 5
                 }
             ],
             poems: [
@@ -665,6 +891,62 @@
 فَإِنَّ المَرْءَ مَا دَامَ حَيّاً يُرْجَى
 لَهُ التَّوْبَةُ حَتَّى يَمُوتَ فَإِذَا مَاتَ انْقَطَعَ الأَمَلُ`,
                     year: 805
+                },
+                {
+                    id: 11,
+                    poetId: 11,
+                    title: "أنا الذي نظر الأعمى",
+                    content: `أَنَا الَّذِي نَظَرَ الأَعْمَى إِلَى أَدَبِي
+وَسَمِعَتْ كَلِمَاتِي مَنْ بِهِ صَمَمُ
+أَنَامُ مِلْءَ جُفُونِي عَنْ شَوَارِدِهَا
+وَيَسْهَرُ الخَلْقُ جَرَّاهَا وَيَخْتَصِمُ
+وَجَاهِلٍ مَادَ فِي جَهْلِهِ ضَحِكَتْ
+مِنْهُ الثِّيَابُ عَلَى سَاعِدِهِ وَقَدَمِ`,
+                    year: 710
+                },
+                {
+                    id: 12,
+                    poetId: 12,
+                    title: "وصف الربيع",
+                    content: `أَتَاكَ الرَّبِيعُ الطَّلْقُ يَخْتَالُ ضَاحِكاً
+مِنَ الحُسْنِ حَتَّى كَادَ أَنْ يَتَكَلَّمَا
+وَقَدْ نَبَّهَ النَّوْرُوزُ فِي غَلَسِ الدُّجَى
+أَوَائِلَ وَرْدٍ كُنَّ بِالأَمْسِ نُوَّمَا
+يُفَتِّقُهَا بَرْدُ النَّدَى فَكَأَنَّهُ
+يُنَفِّسُ عَنْ كَتْمٍ كَانَ مُكْتَتَمَا`,
+                    year: 860
+                },
+                {
+                    id: 13,
+                    poetId: 1,
+                    title: "على قدر أهل العزم",
+                    content: `عَلَى قَدْرِ أَهْلِ العَزْمِ تَأْتِي العَزَائِمُ
+وتَأْتِي عَلَى قَدْرِ الكِرَامِ المَكَارِمُ
+وتَعْظُمُ فِي عَيْنِ الصّغِيرِ صِغَارُهَا
+وتَصْغُرُ فِي عَيْنِ العَظِيمِ العَظَائِمُ`,
+                    year: 350
+                },
+                {
+                    id: 14,
+                    poetId: 4,
+                    title: "سجل أنا عربي",
+                    content: `سَجِّلْ! أَنَا عَرَبِيٌّ
+وَرَقْمُ بِطَاقَتِي خَمْسُونَ أَلْفًا
+وَأَطْفَالِي ثَمَانِيَةٌ
+وَتَاسِعُهُمْ سَيَأْتِي بَعْدَ صَيْفٍ!
+فَهَلْ تَغْضَبُ؟`,
+                    year: 1964
+                },
+                {
+                    id: 15,
+                    poetId: 5,
+                    title: "الحب المستحيل",
+                    content: `كَيْفَ أَكْتُبُ عَنْ حُبٍّ مُسْتَحِيلٍ؟
+عَنْ حُبٍّ أَشْبَهُ بِالْمَاءِ فِي الغِرْبَالِ
+عَنْ حُبٍّ أَشْبَهُ بِالطَّيْرِ فِي الأَقْفَاصِ
+عَنْ حُبٍّ يَبْكِي وَيَضْحَكُ فِي أَنْفَاسِي
+عَنْ حُبٍّ أَشْبَهُ بِالرَّمْلِ بَيْنَ أَصَابِعِي`,
+                    year: 1972
                 }
             ]
         };
@@ -673,6 +955,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             renderPoets();
             setupEventListeners();
+            setupAnimations();
         });
 
         // عرض الشعراء في الطبقة الأولى
@@ -680,9 +963,10 @@
             const container = document.getElementById('poets-container');
             container.innerHTML = '';
             
-            poetryData.poets.forEach(poet => {
+            poetryData.poets.forEach((poet, index) => {
                 const poetElement = document.createElement('div');
                 poetElement.className = 'poet-card';
+                poetElement.style.animationDelay = `${index * 0.1}s`;
                 poetElement.innerHTML = `
                     <div class="poet-avatar" style="background-color: ${poet.color}">
                         <i>👤</i>
@@ -691,7 +975,12 @@
                         <h3 class="poet-name">${poet.name}</h3>
                         <span class="poet-era">${poet.era}</span>
                         <p class="poet-bio">${poet.bio.substring(0, 120)}...</p>
-                        <button class="view-btn" data-poet-id="${poet.id}">عرض الشاعر</button>
+                        <div style="margin: 10px 0; color: ${poet.color}; font-weight: bold;">
+                            <i class="fas fa-book"></i> عدد القصائد: ${poet.poemsCount}
+                        </div>
+                        <button class="view-btn" data-poet-id="${poet.id}">
+                            <i class="fas fa-user"></i> عرض الشاعر
+                        </button>
                     </div>
                 `;
                 container.appendChild(poetElement);
@@ -717,7 +1006,7 @@
                 poemElement.className = 'poem-item';
                 poemElement.innerHTML = `
                     <span>${poem.title}</span>
-                    <i>→</i>
+                    <i class="fas fa-book-open"></i>
                 `;
                 poemElement.dataset.poemId = poem.id;
                 poemsContainer.appendChild(poemElement);
@@ -747,13 +1036,139 @@
             document.getElementById('poem-view').classList.add('active');
         }
 
+        // البحث عن الشعراء والقصائد
+        function searchPoetry(query) {
+            if (!query.trim()) {
+                renderPoets();
+                return;
+            }
+            
+            const normalizedQuery = query.toLowerCase().trim();
+            
+            // البحث في الشعراء
+            const poetsResults = poetryData.poets.filter(poet => 
+                poet.name.toLowerCase().includes(normalizedQuery) || 
+                poet.bio.toLowerCase().includes(normalizedQuery) ||
+                poet.era.toLowerCase().includes(normalizedQuery)
+            );
+            
+            // البحث في القصائد
+            const poemsResults = poetryData.poems.filter(poem => 
+                poem.title.toLowerCase().includes(normalizedQuery) || 
+                poem.content.toLowerCase().includes(normalizedQuery)
+            );
+            
+            // دمج النتائج وعرضها
+            displaySearchResults(poetsResults, poemsResults);
+        }
+        
+        // عرض نتائج البحث
+        function displaySearchResults(poets, poems) {
+            const container = document.getElementById('poets-container');
+            container.innerHTML = '';
+            
+            if (poets.length === 0 && poems.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 40px;">
+                        <i class="fas fa-search" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 20px;"></i>
+                        <h2 style="color: var(--primary-color);">لم يتم العثور على نتائج</h2>
+                        <p>حاول البحث بكلمات أخرى أو تصفح جميع الشعراء</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // عرض الشعراء الناتجين عن البحث
+            poets.forEach(poet => {
+                const poetElement = document.createElement('div');
+                poetElement.className = 'poet-card';
+                poetElement.innerHTML = `
+                    <div class="poet-avatar" style="background-color: ${poet.color}">
+                        <i>👤</i>
+                    </div>
+                    <div class="poet-info">
+                        <h3 class="poet-name">${poet.name}</h3>
+                        <span class="poet-era">${poet.era}</span>
+                        <p class="poet-bio">${poet.bio.substring(0, 120)}...</p>
+                        <button class="view-btn" data-poet-id="${poet.id}">
+                            <i class="fas fa-user"></i> عرض الشاعر
+                        </button>
+                    </div>
+                `;
+                container.appendChild(poetElement);
+            });
+            
+            // عرض القصائد الناتجة عن البحث
+            poems.forEach(poem => {
+                const poet = poetryData.poets.find(p => p.id === poem.poetId);
+                const poemElement = document.createElement('div');
+                poemElement.className = 'poet-card';
+                poemElement.innerHTML = `
+                    <div class="poet-avatar" style="background-color: ${poet.color}">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="poet-info">
+                        <h3 class="poet-name">${poem.title}</h3>
+                        <span class="poet-era">قصيدة للشاعر ${poet.name}</span>
+                        <p class="poet-bio">${poem.content.substring(0, 100)}...</p>
+                        <button class="view-btn" data-poem-id="${poem.id}">
+                            <i class="fas fa-book-open"></i> قراءة القصيدة
+                        </button>
+                    </div>
+                `;
+                container.appendChild(poemElement);
+            });
+        }
+
+        // نسخ القصيدة
+        function copyPoem() {
+            const poemContent = document.getElementById('poem-content').textContent;
+            navigator.clipboard.writeText(poemContent)
+                .then(() => {
+                    showNotification('تم نسخ القصيدة بنجاح!');
+                })
+                .catch(err => {
+                    showNotification('حدث خطأ أثناء النسخ!');
+                });
+        }
+        
+        // عرض الإشعار
+        function showNotification(message) {
+            const notification = document.getElementById('copy-notification');
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // إعداد الرسوم المتحركة
+        function setupAnimations() {
+            // إضافة تأثيرات عند التمرير
+            window.addEventListener('scroll', () => {
+                const cards = document.querySelectorAll('.poet-card');
+                cards.forEach(card => {
+                    const cardPosition = card.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if(cardPosition < screenPosition) {
+                        card.style.animation = 'fadeInUp 0.6s ease forwards';
+                    }
+                });
+            });
+        }
+
         // إعداد المستمعين للأحداث
         function setupEventListeners() {
             // النقر على زر عرض الشاعر
             document.addEventListener('click', function(e) {
                 if (e.target.classList.contains('view-btn')) {
                     const poetId = parseInt(e.target.dataset.poetId);
-                    showPoet(poetId);
+                    if (poetId) showPoet(poetId);
+                    
+                    const poemId = parseInt(e.target.dataset.poemId);
+                    if (poemId) showPoem(poemId);
                 }
                 
                 // النقر على قصيدة في صفحة الشاعر
@@ -776,6 +1191,23 @@
                 document.getElementById('poem-view').classList.remove('active');
                 document.getElementById('poet-view').classList.add('active');
             });
+            
+            // زر البحث
+            document.getElementById('search-btn').addEventListener('click', function() {
+                const query = document.getElementById('search-input').value;
+                searchPoetry(query);
+            });
+            
+            // البحث عند الضغط على Enter
+            document.getElementById('search-input').addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    const query = document.getElementById('search-input').value;
+                    searchPoetry(query);
+                }
+            });
+            
+            // زر نسخ القصيدة
+            document.getElementById('copy-poem-btn').addEventListener('click', copyPoem);
         }
     </script>
 </body>
